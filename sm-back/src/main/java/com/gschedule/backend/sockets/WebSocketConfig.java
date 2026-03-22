@@ -22,7 +22,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // El punto de entrada para la conexión desde Angular
         registry.addEndpoint("/ws-gschedule")
-                .setAllowedOrigins("http://localhost:4200")
+                .setAllowedOrigins("https://slot-match.vercel.app")
                 .withSockJS(); 
     }
 }
