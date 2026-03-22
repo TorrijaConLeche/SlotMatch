@@ -41,7 +41,11 @@ export class GroupDashboardComponent implements OnInit{
       next: (res) => { // if exists
         console.log(res)
         this.group = res
-        this.checkLocalIdentity(slug)
+        this.UserId = localStorage.getItem(`group_user_${slug}`);
+        
+        // all the times an user come via URL - need to know username (we store ID)
+        if(!this.userName) this.getUserName() 
+
       },
       error: (err) => { // if not exists
         alert('Error, group does not exist')
@@ -50,8 +54,15 @@ export class GroupDashboardComponent implements OnInit{
     })
   }
 
-  checkLocalIdentity(slug: string){
-    this.UserId = localStorage.getItem(`group_user_${slug}`);
+  getUserName(){
+    if(!this.UserId) return;
+
+    this.groupService.getUserNameById(this.UserId).subscribe({
+      next: (res) => {
+        this.userName = res.userName
+      }
+    })
+
   }
 
   saveUserId() {

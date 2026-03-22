@@ -59,4 +59,9 @@ public class GroupService {
         return new HeatMapResponseDTO(totalParticipants, slots);
     }
 
+    public String getUserName(String userId){
+       List<GroupMember> gm = this.groupMemberDAO.findByUserId(userId);
+
+       return gm.get(0).getDisplayName();
+    }
 }

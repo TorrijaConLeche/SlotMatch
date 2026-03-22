@@ -6,7 +6,13 @@ import com.gschedule.backend.model.CalendarGroup;
 import com.gschedule.backend.model.GroupMember;
 import com.gschedule.backend.services.GroupService;
 
+import tools.jackson.databind.util.JSONPObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.autoconfigure.JacksonProperties.Json;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -61,6 +67,16 @@ public class GroupController {
 
         return data;
 
+    }
+
+    @GetMapping("/getUserName/{userId}")
+    public ResponseEntity<Map<String, String>> getUserName(@PathVariable String userId) {
+        String data = this.groupService.getUserName(userId);
+        
+        Map<String, String> response = new HashMap<>();
+        response.put("userName", data);
+        
+        return ResponseEntity.ok(response);
     }
 
 }

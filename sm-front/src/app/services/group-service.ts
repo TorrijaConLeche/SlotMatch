@@ -32,4 +32,8 @@ export class GroupService {
     return this.http.get<any>(`${this.apiUrl}/getHeatMap/${groupId}`);
   }
 
+  getUserNameById(userId: string){
+    return this.http.get<any>(`${this.apiUrl}/getUserName/${userId}`)
+  }
+
 }
