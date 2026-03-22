@@ -1,0 +1,32 @@
+<div class="calendar-header">
+    <h2>My availability </h2>
+    <div class="btn-group">
+        <button (click)="saveCalendar()" class="btn btn-save">Save Calendar</button>
+        <button (click)="clearCalendar()" class="btn btn-clear">Clear Calendar</button>
+    </div>
+
+</div>
+
+
+<div class="calendar-grid">
+
+  <div class="header-cell"></div>
+
+  @for (dia of ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']; track dia) {
+    <div class="header-cell">{{ dia }}</div>
+  }
+
+  @for (h of [8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]; track h) {
+    
+    <div class="hour-label">{{ h }}:00 - {{ h+1 }}:00</div>
+
+    @for (d of [0,1,2,3,4,5,6]; track d) {
+      @let currentSlot = getSlot(d, h);
+
+      <div class="slot-cell"
+           [class.selected]="currentSlot?.selected"
+           (click)="toggleSlot(d, h)">
+      </div>
+    }
+  }
+</div>

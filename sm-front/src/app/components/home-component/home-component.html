@@ -1,0 +1,11 @@
+<h2> Create a group to start! </h2>
+
+<input [(ngModel)]="groupName" name="groupName" required>
+
+<button (click)="createGroup()" 
+        [disabled]="!groupName"
+        >
+
+        Create
+    
+</button>
