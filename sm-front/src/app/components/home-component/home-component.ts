@@ -11,8 +11,14 @@ import { Router } from '@angular/router';
 export class HomeComponent {
 
   groupName = ''
-
+  mode = 'none';
   constructor(private groupService: GroupService, private router: Router){}
+
+
+
+  toggleMode(newMode: string){
+      this.mode = newMode
+  }
 
   createGroup() {
     this.groupService.createGroup(this.groupName).subscribe({

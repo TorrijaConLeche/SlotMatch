@@ -8,3 +8,11 @@ body {
     text-align: center;
     font-family: system-ui;
 }
+
+:root {
+    --primary-light: #ffefd1; /* global scope */
+    --primary-med: #ffa500; /* global scope */
+    --primary-dark: #8a5a00; /* global scope */
+    --secondary-dark: #333333; /* global scope */
+
+}

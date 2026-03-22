@@ -1,11 +1,52 @@
-<h2> Create a group to start! </h2>
 
-<input [(ngModel)]="groupName" name="groupName" required>
 
-<button (click)="createGroup()" 
-        [disabled]="!groupName"
-        >
+@if (mode == "create") {        
+   
+        <div class="intro-header">
+                <img (click)="toggleMode('none')" class="back-img" src="https://img.icons8.com/?size=100&id=9432&format=png&color=000000">
+                <h2 class="create-txt"> Create a group to start! </h2> 
+        </div>
 
-        Create
-    
-</button>
+
+        <input [(ngModel)]="groupName" name="groupName" required>
+
+        <button (click)="createGroup()" 
+                [disabled]="!groupName"
+                > 
+
+                Create
+        
+        </button>
+        <br>
+        
+}
+
+@else if (mode == "join") {
+        
+} 
+
+@else {
+        <h1> How it works? </h1>
+        <div class="intro-text">
+                <span>To start organizing with your mates you can either
+
+                <button (click)="toggleMode('join')" class="btn btn-join">Join</button> 
+                
+                an existing group or just
+
+                <button (click)="toggleMode('create')" class="btn btn-create"> Create </button> 
+
+                a new one.</span>      
+                
+
+        </div>
+        <br>
+        <br>
+        <h1>After Joining / Creating a group</h1>
+        <span>You will be asked to create an user for the group</span>
+        <p class="subtitle"> You will have a private calendar for each group</p>
+
+        
+
+
+}
