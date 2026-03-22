@@ -19,6 +19,9 @@ export class GroupDashboardComponent implements OnInit{
   UserId: string | null = null
   userName: string  = ''
   showGroup: boolean = false
+
+  showToast: boolean = false // Show info to user
+  toastMessage: string = ''
   constructor
   (
     private route: ActivatedRoute, private groupService: GroupService,
@@ -104,6 +107,22 @@ export class GroupDashboardComponent implements OnInit{
 
     // Save userId in local storage
     localStorage.setItem(`group_user_${slug}`, this.UserId);
+  }
+
+  copyClipboard(){
+    if (this.group) {
+      navigator.clipboard.writeText(this.group.slug)
+      this.triggerToast("✅ Group code copied to clipboard ")
+    }
+  }
+
+  triggerToast(message: string) {
+    this.toastMessage = message
+    this.showToast = true;
+
+    setTimeout(() => {
+      this.showToast = false;
+    }, 3000);
   }
 
 }

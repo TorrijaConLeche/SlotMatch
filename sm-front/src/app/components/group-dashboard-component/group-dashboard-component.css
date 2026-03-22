@@ -1,0 +1,45 @@
+.slug-copy{
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    align-self: center;
+    justify-content: center;
+    background-color: rgb(224, 224, 224);
+    padding: 1%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.grp-container {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  
+  /* Animación de entrada */
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    bottom: -50px;
+    opacity: 0;
+  }
+  to {
+    bottom: 20px;
+    opacity: 1;
+  }
+}

@@ -6,6 +6,7 @@
 @else if (!UserId) 
 
 {
+
         <h2> Welcome to {{group.name}} </h2>
         <p>Start creating an user</p>
         <input type="text" placeholder="Username"
@@ -18,7 +19,15 @@
     {
         <div class="dashboard">
         <header>
-          <h1>📅 {{ group.name }}   </h1>
+          <div class="grp-container">
+            <h1>📅 {{ group.name }} </h1>
+            <div class="slug-copy" (click)="copyClipboard()">
+              <span>{{this.group.slug}}</span>
+              <img width="20px" src="https://img.icons8.com/?size=100&id=86206&format=png&color=000000">
+            </div>
+          </div>
+          
+
           <div class="user-badge">Logged as: <strong>{{ userName }}</strong></div>
         </header>
 
@@ -27,16 +36,24 @@
 
             <app-heatmap-component 
             [style.display]="showGroup ? 'block' : 'none'"
-            (changeView)="toggleView()" 
+            (changeView)="toggleView()"
             [groupId]="group.groupId"
             />
 
             <app-calendar-component
              [style.display]="!showGroup ? 'block' : 'none'"
              (changeView)="toggleView()"
+             (calendarSaved)="triggerToast($event)"
              [userId]="UserId"
              />
       
         </div>
       </div>
+
+              @if (showToast) {
+          <div class="toast">
+           <span>{{this.toastMessage}}</span>
+          </div>
+        }
+
     }

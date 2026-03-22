@@ -12,6 +12,7 @@ import { AvailabilityDTO, UserAvailabilityDTO } from '../../model/availabilityDT
 export class CalendarComponent implements OnInit {
 
   @Output() changeView: EventEmitter<any> = new EventEmitter();
+  @Output() calendarSaved: EventEmitter<any> = new EventEmitter();
 
   @Input() userId: string | null = ''
 
@@ -76,9 +77,11 @@ export class CalendarComponent implements OnInit {
 
       this.calendarService.saveCalendar(fullData).subscribe({
         next: () => {
+          this.calendarSaved.emit('✅ Calendar saved successfully')
         },
         error: (err) => {
-          alert('Error while saving calendar: ' + err)
+          this.calendarSaved.emit('❌ Error while saving calendar')
+
         }
       })
   }
