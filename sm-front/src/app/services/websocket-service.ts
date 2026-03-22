@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import { Subject, Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class WebsocketService {
 
   // 1. Conectar al servidor (al endpoint que pusimos en Java)
   connect(onConnected: () => void): void {
-    const socket = new SockJS('http://localhost:8080/ws-gschedule');
+    const socket = new SockJS(environment.wsUrl);
     this.stompClient = Stomp.over(socket);
 
     this.stompClient.connect({}, (frame: any) => {

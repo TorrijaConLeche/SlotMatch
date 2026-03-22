@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CalendarGroup } from '../model/CalendarGroup';
 import { GroupMemberDTO } from '../model/groupMemberDTO';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { GroupMemberDTO } from '../model/groupMemberDTO';
 
 export class GroupService {
 
-  apiUrl = 'http://localhost:8080/groups'
+  apiUrl = environment.apiUrl + '/groups'
 
   constructor(private http: HttpClient){}
 
