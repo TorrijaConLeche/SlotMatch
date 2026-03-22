@@ -22,7 +22,17 @@
 }
 
 @else if (mode == "join") {
-        
+        <div class="intro-header">
+                <img (click)="toggleMode('none')" class="back-img" src="https://img.icons8.com/?size=100&id=9432&format=png&color=000000">
+                <h2 class="create-txt"> Enter the code to join a group</h2> 
+        </div>
+
+
+        <input [(ngModel)]="slug" name="slug" placeholder="Group Code" required>
+
+        <button (click)="joinGroup()" [disabled]="!slug"> Join </button>
+
+        <br>
 } 
 
 @else {

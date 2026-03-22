@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GroupService } from '../../services/group-service';
 import { FormsModule } from "@angular/forms";
 import { CalendarComponent } from "../calendar-component/calendar-component";

@@ -6,7 +6,7 @@
 @else if (!UserId) 
 
 {
-        <h2> Welcome to {{group.name}}</h2>
+        <h2> Welcome to {{group.name}} </h2>
         <p>Start creating an user</p>
         <input type="text" placeholder="Username"
         [(ngModel)]="userName"
@@ -19,16 +19,15 @@
         <div class="dashboard">
         <header>
           <h1>📅 {{ group.name }}   </h1>
-          <div class="user-badge">Logged as: <strong>{{ UserId }}</strong></div>
+          <div class="user-badge">Logged as: <strong>{{ userName }}</strong></div>
         </header>
 
         <div class="content">
   
 
+          <app-calendar-component [userId]="UserId"/>
+          <app-heatmap-component [groupId]="group.groupId"/>
 
-              <app-heatmap-component [groupId]="group.groupId"/>
-
-              <app-calendar-component [userId]="UserId"/>
       
         </div>
       </div>

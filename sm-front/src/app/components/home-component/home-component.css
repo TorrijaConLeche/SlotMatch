@@ -49,6 +49,10 @@ span {
     color: brown;
 }
 
+button {
+    cursor: pointer;
+}
+
 .back-img {
     width: 32px;
     height: 32px;

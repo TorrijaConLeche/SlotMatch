@@ -12,6 +12,7 @@ export class HomeComponent {
 
   groupName = ''
   mode = 'none';
+  slug = ''
   constructor(private groupService: GroupService, private router: Router){}
 
 
@@ -30,4 +31,11 @@ export class HomeComponent {
       }
     })
   }
+
+  joinGroup() {
+    this.router.navigate(['/group/' + 'f8e8d638'])
+  }
+
+
+
 }
