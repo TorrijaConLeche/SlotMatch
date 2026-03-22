@@ -33,7 +33,7 @@ export class HomeComponent {
   }
 
   joinGroup() {
-    this.router.navigate(['/group/' + 'f8e8d638'])
+    this.router.navigate(['/group/' + this.slug])
   }
 
 
