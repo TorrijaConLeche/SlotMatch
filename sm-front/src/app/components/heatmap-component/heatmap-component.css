@@ -52,3 +52,8 @@
   font-weight: bold;
 }
 
+.text-group {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}

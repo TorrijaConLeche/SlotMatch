@@ -15,14 +15,21 @@
     justify-content: space-between;
 }
 
-
-
 .btn-group {
     gap: 1em;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all ease-in-out;
 }
+
+.text-group {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+
 
 .btn {
     height: 50%;

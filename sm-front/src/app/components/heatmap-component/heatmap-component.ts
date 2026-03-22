@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { GroupService } from '../../services/group-service';
 import { HeatMapSlot } from '../../model/HeatMapSlot';
 import { WebsocketService } from '../../services/websocket-service';
@@ -10,7 +10,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './heatmap-component.html',
   styleUrl: './heatmap-component.css',
 })
-export class HeatmapComponent implements OnInit{
+export class HeatmapComponent implements OnInit, OnDestroy{
+
+  @Output() changeView: EventEmitter<any> = new EventEmitter();
 
   @Input() groupId: number = 11; 
 
@@ -26,17 +28,21 @@ export class HeatmapComponent implements OnInit{
   ngOnInit(): void {
     this.loadHeatMap();
 
-    console.log("SUBSCRIBIENDO A grup : " + this.groupId)
     this.wsService.connect(() => {
       this.wsSubscription = this.wsService.subscribeToGroup(this.groupId).subscribe(
         (message) => {
-          console.log("Mensaje recibido: " + message);
           if (message === "REFRESH") {
             this.loadHeatMap();
           }
         }
       );
     });
+  }
+
+  ngOnDestroy(): void { // Unsubscribe and destroy
+      if (this.wsSubscription) this.wsSubscription.unsubscribe() 
+
+      this.wsService.disconnect()
   }
 
   loadHeatMap(){
@@ -61,6 +67,9 @@ export class HeatmapComponent implements OnInit{
     return availableOnCell / this.totalParticipants;
   }
 
+  changeCalendarView(){
+    this.changeView.emit(null)
+  }
 
 }
 

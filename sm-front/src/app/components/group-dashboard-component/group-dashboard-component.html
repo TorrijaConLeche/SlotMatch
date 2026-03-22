@@ -25,9 +25,17 @@
         <div class="content">
   
 
-          <app-calendar-component [userId]="UserId"/>
-          <app-heatmap-component [groupId]="group.groupId"/>
+            <app-heatmap-component 
+            [style.display]="showGroup ? 'block' : 'none'"
+            (changeView)="toggleView()" 
+            [groupId]="group.groupId"
+            />
 
+            <app-calendar-component
+             [style.display]="!showGroup ? 'block' : 'none'"
+             (changeView)="toggleView()"
+             [userId]="UserId"
+             />
       
         </div>
       </div>

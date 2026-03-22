@@ -54,6 +54,10 @@ export class GroupDashboardComponent implements OnInit{
     })
   }
 
+  toggleView(){
+    this.showGroup = !this.showGroup
+  }
+
   getUserName(){
     if(!this.UserId) return;
 
@@ -64,6 +68,7 @@ export class GroupDashboardComponent implements OnInit{
     })
 
   }
+
 
   saveUserId() {
     if (this.userName.trim().length < 2) {
