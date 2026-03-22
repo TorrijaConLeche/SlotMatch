@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@CrossOrigin(origins = "https://slotmatch.vercel.app")
+@CrossOrigin(origins = "https://slot-match.vercel.app")
 @RequestMapping("/groups")
 public class GroupController {
     

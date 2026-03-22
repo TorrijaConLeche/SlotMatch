@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@CrossOrigin(origins = "https://slotmatch.vercel.app")
+@CrossOrigin(origins = "https://slot-match.vercel.app")
 @RequestMapping("/calendar")
 public class AvailabilityController {
     
