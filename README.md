@@ -1,5 +1,7 @@
 # 🗓️ SlotMatch - Group Availability Visualizer
 
+**DISCLAIMER: This project is hosted with a free plan, meaning that backend needs between 30 and 60 seconds to start working**
+
 SlotMatch is a collaborative tool designed to solve a problem I have with my friends: "when should we meet?". For this purpose, SlotMatch uses a real-time heat map to instantly visualize the best available times for a group.
 
 ---
