@@ -23,6 +23,12 @@ SlotMatch is a collaborative tool designed to solve a problem I have with my fri
 ### Realtime Communication 
 ![WebSockets](https://img.shields.io/badge/WebSockets-Socket.io-black?style=for-the-badge&logo=socket.io)
 
+## TODO
+* Finish endpoint documentation
+* Add control and validation when creating users and groups
+* Handle exceptions and errors properly using @ControllerAdvice and @ExceptionHandler
+* Review and adjust existing front-end component and interfaces
+
 ## Ideas / New Features
 * When in a group, show all members of the group highlighting online users ✅
 * On the home page, display the names of the groups of which the user is a member
@@ -90,4 +96,21 @@ sequenceDiagram
     API-->>Group: Return updated HeatMapResponseDTO
     Note over Group: UI updates with new intensities
   ```
-    
+
+### Endpoints
+
+
+| **Module**       | **Method** | **Endpoint**   | **Input (Body / Path Var)** | **Output (DTO / Msg)** | **Description**                                                       |
+| ---------------- | ----------------- | -------------------------------- | --------------------------- | ---------------------- | --------------------------------------------------------------------- |
+| **Availability** | `POST`            | `/calendar/save`                 | `UserAvailabilityDTO`       | `void` (200 OK)        | Save user availability and triggers global REFRESH.          |
+| **Availability** | `GET`             | `/calendar/load`                 | `?username={string}`        | `List<Availability>`   | Carga la disponibilidad guardada de un usuario específico.            |
+| ---------------- | -----------       | --------------------             | ---------------             | -----------            | ----------------------------------------------------------            |
+| **Groups**       | `POST`            | `/groups/create`                 | `GroupNameDTO`              | `CalendarGroup`        | Crea un grupo nuevo y genera su identificador único (Slug).           |
+| **Groups**       | `GET`             | `/groups/{slug}`                 | `{slug}` (String)           | `CalendarGroup`        | Obtiene los detalles de un grupo mediante su slug de acceso.          |
+| **Groups**       | `POST`            | `/groups/newGroupMember`         | `GroupMember`               | `GroupMember`          | Registra formalmente a un usuario como miembro de un grupo.           |
+| **Groups**       | `GET`             | `/groups/getHeatMap/{groupId}`   | `{groupId}` (Long)          | `HeatMapResponseDTO`   | Obtiene el cálculo de densidades de horarios para el Heatmap.         |
+| **Groups**       | `GET`             | `/groups/getUserName/{userId}`   | `{userId}` (String)         | `{"userName": string}` | Traduce un ID de usuario a su nombre legible.                         |
+| **Groups**       | `GET`             | `/groups/{groupId}/members`      | `{groupId}` (Long)          | `List<GroupMember>`    | Lista todos los integrantes de un grupo específico.                   |
+| **Presence**     | `SEND`            | `/app/heartbeat`                 | `HeartBeatMessage`          | `void`                 | Envío de latido (slug + user) para mantener el estado online.         |
+| **Presence**     | `SUB`             | `/topic/group/{slug}/presence`   | `{slug}` (String)           | `List<String>`         | Suscripción para recibir la lista de usuarios activos en tiempo real. |
+| **Sync**         | `SUB`             | `/topic/group/{groupId}/updated` | `{groupId}` (Long)          | `"REFRESH"` (String)   | Canal de notificación para forzar la recarga del calendario.          |
