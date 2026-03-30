@@ -29,3 +29,65 @@ SlotMatch is a collaborative tool designed to solve a problem I have with my fri
 * When creating a group, user can secure it with a password so the password is needed to join
 * On hovering a cell on heatMap calendar show which users are available (not only av_users / total_users)
 * Whatsapp / Telegram integration via join link
+
+## Documentation
+### 🧩 Realtime Communication (WebSockets)
+#### Live Users
+Following diagram shows how clients interact with backend via WebSockets to announce their presence and also to receive the list of online users
+
+```mermaid
+sequenceDiagram
+    participant FE as Angular (Frontend)
+    participant BE_Ctrl as PresenceController
+    participant BE_Serv as PresenceService
+    participant Map as ConcurrentHashMap (Memoria)
+
+    Note over FE: startHeartBeat() every 10s
+    FE->>BE_Ctrl: STOMP SEND /app/heartbeat {slug, userName}
+    BE_Ctrl->>BE_Serv: handleHeartBeat(slug, user)
+    BE_Serv->>Map: Update user timestamp
+    
+    loop every 5 seconds (@Scheduled)
+        BE_Serv->>BE_Serv: updateOnlineUsers()
+        Note right of BE_Serv: Clear inactive users (>20s without sending heartbeat)
+        BE_Serv->>FE: STOMP SUBSCRIBE /topic/group/{slug}/presence [Array usernames]
+    end
+```
+
+#### Real-Time HeatMap Synchronization
+The following diagram shows how the real-time update of the group calendar has been implemented
+```mermaid
+sequenceDiagram
+    autonumber
+    participant User as User (CalendarComponent)
+    participant API as AvailabilityController
+    participant Service as AvailabilityService
+    participant DB as Database (PostgreSQL/MySQL)
+    participant Broker as WebSocket Broker (STOMP)
+    participant Group as Other Members (HeatmapComponent)
+
+    Note over User, Group: All users are subscribed to /topic/group/{id}/updated
+
+    User->>API: POST /calendar/save (UserAvailabilityDTO)
+    API->>Service: saveCalendar(dto)
+    
+    rect rgb(240, 248, 255)
+        Note over Service, DB: Transactional Context
+        Service->>DB: deleteByUserId(userID)
+        Service->>DB: saveAll(newSlots)
+        Service->>Service: Register Synchronization (afterCommit)
+    end
+
+    DB-->>Service: Transaction Committed Success
+    
+    Note right of Service: Trigger afterCommit() logic
+    Service->>Broker: SEND /topic/group/{id}/updated "REFRESH"
+    
+    Broker-->>Group: Broadcast "REFRESH" Message
+    
+    Note over Group: WebsocketService receives event
+    Group->>API: GET /groups/getHeatMap/{id}
+    API-->>Group: Return updated HeatMapResponseDTO
+    Note over Group: UI updates with new intensities
+  ```
+    
