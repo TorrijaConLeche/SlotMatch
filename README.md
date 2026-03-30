@@ -22,3 +22,10 @@ SlotMatch is a collaborative tool designed to solve a problem I have with my fri
 
 ### Realtime Communication 
 ![WebSockets](https://img.shields.io/badge/WebSockets-Socket.io-black?style=for-the-badge&logo=socket.io)
+
+## Ideas / New Features
+* When in a group, show all members of the group highlighting online users ✅
+* On the home page, display the names of the groups of which the user is a member
+* When creating a group, user can secure it with a password so the password is needed to join
+* On hovering a cell on heatMap calendar show which users are available (not only av_users / total_users)
+* Whatsapp / Telegram integration via join link
